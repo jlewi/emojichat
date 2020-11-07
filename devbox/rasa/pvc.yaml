@@ -2,7 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   # TODO(jlewi): Need to create a kpt setter for this.
-  name: workspace-jlvs # {"$kpt-set":"pvc-name"}
+  name: workspace-jl-rasa # {"$kpt-set":"pvc-name"}
+  namespace: label-bot-dev # {"$kpt-set":"namespace"}
 spec:
   accessModes:
   - ReadWriteOnce

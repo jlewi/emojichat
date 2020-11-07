@@ -18,8 +18,7 @@ openAPI:
         setter:
           isSet: true
           name: gcloud.core.project
-          value: caip-bp-admin
-          setBy: kpt
+          value: issue-label-bot-dev
     io.k8s.cli.setters.gitSecret:
       x-k8s-cli:
         setter:
@@ -30,7 +29,7 @@ openAPI:
         setter:
           isSet: true
           name: image
-          value: gcr.io/issue-label-bot-dev/hf-trainer:4f7a6a9-dirty@sha256:05a48afd77890fb8e00c56fc93267d5a87b7d6d7d9581689fdcee02df4629371
+          value: gcr.io/issue-label-bot-dev/jl-rasa:ab56f6d-dirty@sha256:7b5d4358f668f76d73022d4e11c951e7dc07b87bbdd776646b3255c01e69bb68
     io.k8s.cli.setters.kfname:
       x-k8s-cli:
         setter:
@@ -42,7 +41,7 @@ openAPI:
         setter:
           isSet: true
           name: name
-          value: jlvs
+          value: jl-rasa
     io.k8s.cli.setters.namespace:
       x-k8s-cli:
         setter:
@@ -158,5 +157,21 @@ openAPI:
             ref: '#/definitions/io.k8s.cli.setters.gcloud.core.project'
           - marker: ${namespace}
             ref: '#/definitions/io.k8s.cli.substitutions.namespace'
+          - marker: ${name}
+            ref: '#/definitions/io.k8s.cli.substitutions.name'
+    io.k8s.cli.setters.context:
+      x-k8s-cli:
+        setter:
+          name: context
+          value: label-bot-dev
+          isSet: true
+    io.k8s.cli.substitutions.image-notag:
+      x-k8s-cli:
+        substitution:
+          name: image-notag
+          pattern: gcr.io/${gcloud.core.project}/${name}
+          values:
+          - marker: ${gcloud.core.project}
+            ref: '#/definitions/io.k8s.cli.setters.gcloud.core.project'
           - marker: ${name}
             ref: '#/definitions/io.k8s.cli.substitutions.name'
