@@ -44,4 +44,9 @@ set-image:
 	kpt cfg set . image $(shell yq r image.json builds[0].tag )
 
 apply:
-	kpt --context=$(CONTEXT) live apply .	
+	kpt --context=$(CONTEXT) live apply .
+
+
+# Setup portforwarding
+port-forward:
+	kubectl --context=$(CONTEXT) port-forward service/$(NAME) 8080:8080	

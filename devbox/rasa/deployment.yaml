@@ -39,7 +39,7 @@ spec:
         name: vscode
         # Explicitly set the command so we can use off the shelf notebook images.
         command:
-        - /usr/local/bin/code-server
+        - code-server
         - --auth=none
         #- --bind-addr=jlewicodeserver-0:8080
         - --bind-addr=0.0.0.0:8080
@@ -47,9 +47,9 @@ spec:
         - --user-data-dir=/home/jovyan/data
         - --verbose
         # command:
-        # - tail
-        # - -f
-        # - /dev/null
+        #  - tail
+        #  - -f
+        #  - /dev/null
         livenessProbe:
           httpGet:
             path: /healthz
