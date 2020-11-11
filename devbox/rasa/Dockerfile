@@ -10,7 +10,10 @@ ENV LANG=C.UTF-8
 RUN apt-get update -y && \
 	apt-get install -y emacs \ 
 	curl \
-	python3-dev python3-pip
+	git \
+	ipython3 \
+	python3-dev python3-pip \
+	ssh
 
 RUN pip3 install rasa
 
