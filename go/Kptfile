@@ -1,0 +1,100 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: .
+upstream:
+  type: git
+  git:
+    commit: d2ed23878ab2a903e35576c3b3ea5d4cbd713e19
+    repo: https://github.com/jlewi/emojichat
+    directory: /go
+    ref: master
+packageMetadata:
+  shortDescription: sample description
+openAPI:
+  definitions:
+    io.k8s.cli.setters.gcloud.core.project:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: gcloud.core.project
+          value: issue-label-bot-dev
+    io.k8s.cli.setters.image:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: image
+          value: gcr.io/issue-label-bot-dev/chatbot-fe:2209314-dirty@sha256:b8c73274dfab0ec755edf4021cc90a242b3fd85f6f3fe2b5db21400fb886b293
+    io.k8s.cli.setters.kfname:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: kfname
+          value: issue-label-bot
+    io.k8s.cli.setters.name:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: name
+          value: chatbot
+    io.k8s.cli.setters.namespace:
+      x-k8s-cli:
+        setter:
+          isSet: true
+          name: namespace
+          value: emojichat
+    io.k8s.cli.setters.serviceAccount:
+      x-k8s-cli:
+        setter:
+          name: serviceAccount
+          value: default-editor
+    io.k8s.cli.substitutions.dest-service:
+      x-k8s-cli:
+        substitution:
+          name: dest-service
+          pattern: ${name}.${namespace}.svc.cluster.local
+          values:
+          - marker: ${name}
+            ref: '#/definitions/io.k8s.cli.substitutions.name'
+          - marker: ${namespace}
+            ref: '#/definitions/io.k8s.cli.substitutions.namespace'
+    io.k8s.cli.substitutions.name:
+      x-k8s-cli:
+        substitution:
+          name: name
+          pattern: NAME
+          values:
+          - marker: NAME
+            ref: '#/definitions/io.k8s.cli.setters.name'
+    io.k8s.cli.substitutions.namespace:
+      x-k8s-cli:
+        substitution:
+          name: namespace
+          pattern: NAMESPACE
+          values:
+          - marker: NAMESPACE
+            ref: '#/definitions/io.k8s.cli.setters.namespace'
+    io.k8s.cli.setters.context:
+      x-k8s-cli:
+        setter:
+          name: context
+          value: label-bot-dev
+          isSet: true
+    io.k8s.cli.substitutions.image-notag:
+      x-k8s-cli:
+        substitution:
+          name: image-notag
+          pattern: gcr.io/${gcloud.core.project}/chatbot-fe
+          values:
+          - marker: ${gcloud.core.project}
+            ref: '#/definitions/io.k8s.cli.setters.gcloud.core.project'
+          - marker: ${name}
+            ref: '#/definitions/io.k8s.cli.substitutions.name'
+    io.k8s.cli.substitutions.chatbot-fe-svc:
+      x-k8s-cli:
+        substitution:
+          name: chatbot-fe-svc
+          pattern: chatbot-fe.${namespace}.svc.cluster.local
+          values:
+          - marker: ${namespace}
+            ref: '#/definitions/io.k8s.cli.substitutions.namespace'

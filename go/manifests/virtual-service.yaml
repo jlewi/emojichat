@@ -1,0 +1,38 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  labels:
+    app: chatbot-fe
+  name: chatbot-fe
+  namespace: emojichat # {"$kpt-set":"namespace"}
+spec:
+  gateways:
+  # N.B the gateway is non-standard the standard gateway would be
+  # istio-system/ingressgateway
+  - kubeflow/kubeflow-gateway
+  hosts:
+  - '*'
+  http:
+  - headers:
+      request:
+        add:
+          x-forwarded-prefix: /emojichat
+    match:
+    - uri:
+        prefix: /emojichat/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: chatbot-fe.emojichat.svc.cluster.local # {"$kpt-set":"chatbot-fe-svc"}
+        port:
+          number: 80
+  - match:
+    - uri:
+        exact: /emojichat
+    - uri:
+        exact: /emojichat/
+    - uri:
+        exact: /emojichat/ui
+    redirect:
+      uri: /emojichat/ui/
