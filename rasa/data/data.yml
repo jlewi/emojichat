@@ -1,0 +1,37 @@
+version: "2.0"
+nlu:
+- intent: greet
+  examples: |
+    - Hi
+    - Hey!
+    - Hallo
+    - Good day
+    - Good morning
+- intent: what
+  examples: |
+    - What emojis do you know?
+    - Can you list all the emojis you know?
+
+- intent: translate
+  examples: |
+    - I want to know what this means
+    - What emoji is this?
+    - Can you translate this for me?
+
+responses:
+  utter_greet:
+  - text: "Hi there!"
+  utter_list:
+  - text: "I know 10 emojis"
+
+stories:
+- story: greet and translate
+- steps:
+  - user: |
+      hey
+    intent: greet
+  - action: utter_greet
+  - user: |
+      What emojis do you know?
+    intent: utter_what
+  - action: utter_list
