@@ -1,13 +1,9 @@
-# IMG is the base path for images..
-# Individual images will be
-# $(IMG)/$(NAME):$(TAG)
+KPTFILE=./Kptfile
 
-CONTEXT = $(shell yq r Kptfile openAPI.definitions["io.k8s.cli.setters.context"].["x-k8s-cli"].setter.value)
-PROJECT = $(shell yq r Kptfile openAPI.definitions["io.k8s.cli.setters.gcloud.core.project"].["x-k8s-cli"].setter.value)
-NAME = $(shell yq r Kptfile openAPI.definitions["io.k8s.cli.setters.name"].["x-k8s-cli"].setter.value)
-NAMESPACE = $(shell yq r Kptfile openAPI.definitions["io.k8s.cli.setters.namespace"].["x-k8s-cli"].setter.value)
-
-IMG ?= gcr.io/${PROJECT}/vscode
+CONTEXT = $(shell yq r $(KPTFILE) openAPI.definitions["io.k8s.cli.setters.context"].["x-k8s-cli"].setter.value)
+PROJECT = $(shell yq r $(KPTFILE) openAPI.definitions["io.k8s.cli.setters.gcloud.core.project"].["x-k8s-cli"].setter.value)
+NAME = $(shell yq r $(KPTFILE) openAPI.definitions["io.k8s.cli.setters.name"].["x-k8s-cli"].setter.value)
+NAMESPACE = $(shell yq r $(KPTFILE) openAPI.definitions["io.k8s.cli.setters.namespace"].["x-k8s-cli"].setter.value)
 
 # List any changed  files. We only include files in the notebooks directory.
 # because that is the code in the docker image.
@@ -44,8 +40,3 @@ set-image:
 
 apply:
 	kpt --context=$(CONTEXT) live apply .
-
-
-# Setup portforwarding
-port-forward:
-	kubectl --context=$(CONTEXT) port-forward service/$(NAME) 8080:8080	

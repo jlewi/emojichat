@@ -1,1 +1,1 @@
-{"builds":[{"imageName":"gcr.io/issue-label-bot-dev/jl-rasa","tag":"gcr.io/issue-label-bot-dev/jl-rasa:ab56f6d-dirty@sha256:7b5d4358f668f76d73022d4e11c951e7dc07b87bbdd776646b3255c01e69bb68"}]}
+{"builds":[{"imageName":"gcr.io/issue-label-bot-dev/jl-rasa","tag":"gcr.io/issue-label-bot-dev/jl-rasa:2209314@sha256:f2da9c96e5c2cc2be0168f106c8585c8281652c79a7e0ae6efb42e973ce0f57e"}]}
