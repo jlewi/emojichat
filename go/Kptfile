@@ -24,7 +24,7 @@ openAPI:
         setter:
           isSet: true
           name: image
-          value: gcr.io/issue-label-bot-dev/chatbot-fe:2209314-dirty@sha256:b8c73274dfab0ec755edf4021cc90a242b3fd85f6f3fe2b5db21400fb886b293
+          value: gcr.io/issue-label-bot-dev/chatbot-fe:83da840-dirty@sha256:390cd0baef9bac4f691d0a25b3b5cb3e1485f6674ef0bb2fe7d953af52c01397
     io.k8s.cli.setters.kfname:
       x-k8s-cli:
         setter:
@@ -117,3 +117,9 @@ openAPI:
         setter:
           name: model-bucket
           value: issue-label-bot-dev_jlewi
+    io.k8s.cli.setters.model-name:
+      x-k8s-cli:
+        setter:
+          name: model-name
+          value: 20201114-051924.tar.gz
+          isSet: true

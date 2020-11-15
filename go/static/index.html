@@ -19,9 +19,11 @@
   <div class="chat-container"></div>
 
   <script src="https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/dist/Chatroom.js"/></script>
+
+  <!-- Use relative paths to the base URL so that it works behind reverse proxies. !-->
   <script type="text/javascript">
     var chatroom = new window.Chatroom({
-      host: "http://localhost:5005",
+      host: "../../rasa",
       title: "Emoji translator",
       container: document.querySelector(".chat-container"),
       welcomeMessage: "Hi, I am the emoji translator. How may I help you?",

@@ -38,5 +38,7 @@ build-image:
 set-image:
 	kpt cfg set . image $(shell yq r image.json builds[0].tag )
 
+update-image: build-image set-image
+
 apply:
 	kpt --context=$(CONTEXT) live apply .

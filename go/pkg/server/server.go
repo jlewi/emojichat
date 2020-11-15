@@ -26,7 +26,6 @@ func New(staticFilesPath string, log logr.Logger) (*Server, error) {
 
 	s.Router.HandleFunc("/healthz", s.Healthz)
 
-
 	s.log = log
 
 	if staticFilesPath == ""{

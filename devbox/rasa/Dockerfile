@@ -15,7 +15,23 @@ RUN apt-get update -y && \
 	python3-dev python3-pip \
 	ssh
 
-RUN pip3 install rasa
+RUN pip3 install rasa \
+	google-cloud-storage
+
 
 # Install code server
 RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+ENV PATH=$PATH:/google-cloud-sdk/bin
+
+RUN wget -q https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz && \
+    tar xzf google-cloud-sdk.tar.gz -C / && \
+    rm google-cloud-sdk.tar.gz && \
+    /google-cloud-sdk/install.sh \
+    --disable-installation-options \
+    --bash-completion=false \
+    --path-update=false \
+    --usage-reporting=false && \
+    gcloud components install alpha beta
+
+RUN gcloud components install anthoscli kpt
