@@ -54,7 +54,8 @@ spec:
         command:
         - rasa
         - run
-        - -v
+        - -vv
+        - --enable-api
         - --model
         - 20201114-051924.tar.gz # {"$kpt-set":"model-name"}
         - --remote-storage=gcs
