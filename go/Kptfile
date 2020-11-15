@@ -98,3 +98,22 @@ openAPI:
           values:
           - marker: ${namespace}
             ref: '#/definitions/io.k8s.cli.substitutions.namespace'
+    io.k8s.cli.substitutions.rasa-svc:
+      x-k8s-cli:
+        substitution:
+          name: rasa-svc
+          pattern: rasa.${namespace}.svc.cluster.local
+          values:
+          - marker: ${namespace}
+            ref: '#/definitions/io.k8s.cli.substitutions.namespace'
+    io.k8s.cli.setters.image-rasa:
+      x-k8s-cli:
+        setter:
+          name: image-rasa
+          value: gcr.io/issue-label-bot-dev/jl-rasa:83da840-dirty@sha256:24df139fcd6b218039ff0a861666736942942bc9debc7190483de16de83722b9
+          isSet: true
+    io.k8s.cli.setters.model-bucket:
+      x-k8s-cli:
+        setter:
+          name: model-bucket
+          value: issue-label-bot-dev_jlewi

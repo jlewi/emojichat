@@ -28,3 +28,36 @@ spec:
             memory: "1Gi"
             cpu: "1"
       serviceAccountName: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa
+  namespace: emojichat # {"$kpt-set":"namespace"}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa
+  template:
+    metadata:
+      labels:
+        app: rasa
+    spec:
+      # TODO(jlewi): Should add a health check
+      containers:
+      - name: fe
+        image: gcr.io/issue-label-bot-dev/jl-rasa:83da840-dirty@sha256:24df139fcd6b218039ff0a861666736942942bc9debc7190483de16de83722b9 # {"$kpt-set":"image-rasa"}
+        command:
+        - rasa
+        - run
+        # TODO(jlewi): Should we move the rasa log onto a PD? Is there anyreason to use a log file? Should
+        # we just emit to stdout/stderr and collect the logs?
+        - --log-file=/tmp/rasa.log
+        - --cors="*"
+        # TODO(jlewi): What are good resource limits      
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "8"
+      serviceAccountName: default
