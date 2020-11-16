@@ -11,3 +11,18 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+# Translation form
+- rule: activate form
+  steps:
+   - intent: translate
+   - action: translate_form
+   - active_loop: translate_form
+
+- rule: submit form
+  condition:
+  - active_loop: translate_form
+  steps:
+  - action: translate_form
+  - active_loop: null
+  - action: utter_translated

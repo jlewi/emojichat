@@ -90,3 +90,9 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: translate
+  examples: |
+    - please translate?
+    - Could you translate for me please?
+    - Translate this?
