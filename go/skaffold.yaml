@@ -1,11 +1,15 @@
 # Reference: https://skaffold.dev/docs/references/yaml/
+#
+# TODO(jlewi): .krmignore ends up ignoring the setters/substitutions.
+# If we don't include it in the KRMIgnor file then kpt live doesn't work 
 apiVersion: skaffold/v2alpha1
 kind: Config
 metadata:
   name: chatbot # {"$kpt-set":"name"}
 build:
-  artifacts:
-  - image: gcr.io/issue-label-bot-dev/chatbot-fe # {"$kpt-set":"image-notag"}
+  artifacts:  
+  #- image: gcr.io/issue-label-bot-dev/chatbot-fe # {"$kpt-set":"image-notag"}
+  - image: 963188529772.dkr.ecr.us-west-2.amazonaws.com/emojichat
     # All paths in the dockerfile should be relative to this
     context: .
     kaniko:
@@ -18,10 +22,10 @@ build:
         value: /secret/user-gcp-sa.json
       cache: {}
   cluster:
-    pullSecretName: user-gcp-sa
+    #pullSecretName: user-gcp-sa
     # Build in the kaniko namespace because we need to disable ISTIO sidecar injection
     # see  GoogleContainerTools/skaffold#3442
-    namespace: kaniko
+    namespace: emojichat
     resources:
       requests:
         cpu: 8

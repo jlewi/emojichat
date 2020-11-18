@@ -24,7 +24,7 @@ openAPI:
         setter:
           isSet: true
           name: image
-          value: gcr.io/issue-label-bot-dev/chatbot-fe:83da840-dirty@sha256:390cd0baef9bac4f691d0a25b3b5cb3e1485f6674ef0bb2fe7d953af52c01397
+          value: image-notag
     io.k8s.cli.setters.kfname:
       x-k8s-cli:
         setter:
@@ -78,7 +78,7 @@ openAPI:
       x-k8s-cli:
         setter:
           name: context
-          value: label-bot-dev
+          value: emojichat
           isSet: true
     io.k8s.cli.substitutions.image-notag:
       x-k8s-cli:
