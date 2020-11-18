@@ -8,6 +8,7 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - translate
 
 responses:
   utter_greet:
@@ -28,6 +29,22 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_ask_inputtext:
+  - text: "Please enter the message to translate?"
+
+  utter_translated:
+  - text: |
+      I finished translating {inputtext}
+
+slots:
+  inputtext:
+    type: text
+
+forms:
+  translate_form:
+    inputtext:
+    - type: from_text
 
 session_config:
   session_expiration_time: 60
